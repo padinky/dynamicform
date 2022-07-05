@@ -1,34 +1,55 @@
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+First, you must create file ```.env.local``` to store dev environment variable, you can copy it from ```.env.local.example```, then fill the value of API_URL (in this case it should be : ```https://ulventech-react-exam.netlify.app/api/form```
+
+Then open your terminal and run the development server:
 
 ```bash
-npm run dev
-# or
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser and point it to ```http://localhost:3000```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Build Docker Image
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Simply just run standard docker build script to build the image below :
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+docker build -t dynamicform .
+```
 
-## Learn More
+Then you run your docker image, don't forget to pass the environment variable argument :
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+docker run -p 3000:3000 --env API_URL=https://ulventech-react-exam.netlify.app/api/form dynamicform
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Using Docker Compose
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This project is prepared and ready for any docker orchestration, currently we can use docker-compose to deploy this application. Simply just edit the ```docker-compose.yml``` file and adjust the environment variable needed.
 
-## Deploy on Vercel
+Then we can run : 
+```bash
+docker-compose up
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+it will expose port ```:3000```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Tech Notes
+
+This project currently use these stack :
+1. NextJS
+2. Typescript
+3. Material-UI
+
+State management implemented currently only the ```useState()``` from react-hooks (https://reactjs.org/docs/hooks-state.html)
+
+### Future Development
+1. Implement Redux for state management (still learning)
+2. Improve user experience and styling
+3. Optimize everything (from feedbacks, if any)
+
+Thank you and stay healthy!
